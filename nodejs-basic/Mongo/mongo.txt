@@ -1,0 +1,32 @@
+INSERT -> insertOne() , insertMany()
+-------
+
+READ ->
+-------
+
+db.customer.find();	//select * from customer
+db.customer.find().pretty();
+db.customer.find().pretty().count();
+db.customer.find({firstName: "Pho"}).pretty();
+db.customer.find({_id: ObjectId("61670b0b33ab4a1272a838f0")}).pretty();
+db.customer.find().sort({firstName: 1}).pretty();
+db.customer.find().sort({firstName: 1}).limit(2).pretty();
+db.customer.find().limit(2).pretty();
+
+
+UPDATE
+-------
+
+db.customer.updateOne({_id: ObjectId("61670b0b33ab4a1272a838f0")},
+	{
+		$set : {
+			email: "pho@gmail.com",
+			ipAddress: "255.255.255.0"
+		}
+	}
+);
+
+DELETE
+-------
+
+db.customer.deleteOne({_id: ObjectId("61670b0b33ab4a1272a838f0")});
