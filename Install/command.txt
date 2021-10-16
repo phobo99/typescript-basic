@@ -1,0 +1,38 @@
+YARN:
+
+yarn init
+
+yarn add -D  @types/node typescript
+
+yarn add -D ts-node
+
+npx tsconfig.json
+
+yarn add -D nodemon
+
+
+---------------------
+"start": "node dist/index.js", 				//chạy theo đơn thuần, k thay đổi file và chạy lại file
+
+"server": "nodemon dist/index.js",			//* nodemon chỉ watch sự thay đổi của file js thay vì watch file ts
+
+"start-ts": "ts-node src/index.ts",			// ts-node có thể watch sự thay đổi của file ts
+
+"server-ts": "nodemon --exec ts-node src/index.ts",	//nodemon lắng nghe sự thay đổi của file ts
+
+"watch": "tsc -w"					//* watch sự thay đổi
+
+----------------------
+NPM :
+
+package.json --->	npm init --yes
+tsconfig.json --->	tsc --init
+
+npm install @types/node
+
+how to run a ts program:
+-----------------------
+1. tsc app.ts , node app.js
+2*. ts-node app.ts	
+3. nodemon app.ts (server)
+4. npm start
