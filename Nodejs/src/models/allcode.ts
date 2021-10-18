@@ -1,5 +1,6 @@
 'use strict';
 import {
+    DataTypes,
     Model
 } from 'sequelize';
 
@@ -10,7 +11,7 @@ interface AllcodeAttributes {
     valueVi: string,
 }
 
-module.exports = (sequelize: any, DataTypes: any) => {
+module.exports = (sequelize: any, dataTypes: typeof DataTypes) => {
     class Allcode extends Model<AllcodeAttributes>
         implements AllcodeAttributes {
         /**
@@ -34,18 +35,18 @@ module.exports = (sequelize: any, DataTypes: any) => {
             allowNull: false,
             autoIncrement: true,
             primaryKey: true,
-            type: DataTypes.INTEGER
+            type: dataTypes.INTEGER
         },
         type: {
-            type: DataTypes.STRING,
+            type: dataTypes.STRING,
             allowNull: true
         },
         valueEn: {
-            type: DataTypes.STRING,
+            type: dataTypes.STRING,
             allowNull: true
         },
         valueVi: {
-            type: DataTypes.STRING,
+            type: dataTypes.STRING,
             allowNull: true
         }
     }, {

@@ -1,9 +1,9 @@
 import doctorService from "../services/doctorService";
-import express from "express";
+import { Request, Response } from "express";
 
-let getTopDoctorHome = async (req: express.Request, res: express.Response) => {
+const getTopDoctorHome = async (req: Request, res: Response) => {
     try {
-        let response = await doctorService.getTopDoctorHome()
+        const response = await doctorService.getTopDoctorHome()
         return res.status(200).json(response)
     } catch (e) {
         console.log(e)
@@ -13,9 +13,9 @@ let getTopDoctorHome = async (req: express.Request, res: express.Response) => {
         })
     }
 }
-let getAllDoctors = async (req: express.Request, res: express.Response) => {
+const getAllDoctors = async (req: Request, res: Response) => {
     try {
-        let doctors = await doctorService.getAllDoctors();
+        const doctors = await doctorService.getAllDoctors();
         return res.status(200).json(doctors)
     } catch (e) {
         console.log(e)
@@ -25,9 +25,9 @@ let getAllDoctors = async (req: express.Request, res: express.Response) => {
         })
     }
 }
-let postInforDoctor = async (req: express.Request, res: express.Response) => {
+const postInforDoctor = async (req: Request, res: Response) => {
     try {
-        let response = await doctorService.saveDetailInforDoctor(req.body);
+        const response = await doctorService.saveDetailInforDoctor(req.body);
         return res.status(200).json(response)
     } catch (e) {
         console.log(e)
@@ -37,9 +37,9 @@ let postInforDoctor = async (req: express.Request, res: express.Response) => {
         })
     }
 }
-let getDetailDoctorById = async (req: express.Request, res: express.Response) => {
+const getDetailDoctorById = async (req: Request, res: Response) => {
     try {
-        let info = await doctorService.getDetailDoctorById(req.query.id);
+        let info = await doctorService.getDetailDoctorById(req.query.id as string);
         return res.status(200).json(info)
     } catch (e) {
         console.log(e)

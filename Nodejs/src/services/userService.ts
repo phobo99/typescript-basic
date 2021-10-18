@@ -4,10 +4,10 @@ import _ from 'lodash';
 
 const salt = bcrypt.genSaltSync(10);
 
-let hashUserPassword = (password: string) => {
+const hashUserPassword = (password: string) => {
     return new Promise((resolve, reject) => {
         try {
-            let hashPassword = bcrypt.hashSync(password, salt);
+            const hashPassword = bcrypt.hashSync(password, salt);
             resolve(hashPassword);
         } catch (e) {
             reject(e);
@@ -15,7 +15,10 @@ let hashUserPassword = (password: string) => {
     })
 }
 
-let handleUserLogin = (email: string, password: string) => {
+const handleUserLogin = (
+    email: string,
+    password: string
+) => {
     return new Promise(async (resolve, reject) => {
         try {
             let userData: { errCode: number, errMessage: string, user: any, } = {
@@ -23,10 +26,10 @@ let handleUserLogin = (email: string, password: string) => {
                 errMessage: "",
                 user: undefined
             };
-            let isExist = await checkUserEmail(email);
+            const isExist = await checkUserEmail(email);
             if (isExist) {
                 // user already exist
-                let user = await db.User.findOne({
+                const user = await db.User.findOne({
                     attributes: ['email', 'roleId', 'password', 'firstName', 'lastName'], // lấy ra 3 trường
                     where: { email: email }, // vẫn kiểm tra email, trừ trường hợp người ta xoá trong lúc hàm checkEmail trên đang chạy
                     raw: true // ẩn phần k cần thiết
@@ -34,7 +37,7 @@ let handleUserLogin = (email: string, password: string) => {
                 if (user) {
                     //compare password
                     // kiểm tra xem nhập password có đúng không
-                    let check = bcrypt.compareSync(password, user.password) // false
+                    const check = bcrypt.compareSync(password, user.password) // false
                     if (check) {
                         userData.errCode = 0;
                         userData.errMessage = 'OK';
@@ -61,21 +64,20 @@ let handleUserLogin = (email: string, password: string) => {
 }
 
 // kiểm tra xem email đã có trong db hay chưa
-let checkUserEmail = (userEmail: string) => {
-    return new Promise(async (resolve, reject) => {
-        try {
-            let user = await db.User.findOne({
-                where: { email: userEmail }
-            })
-            if (user) {
-                resolve(true)
-            } else {
-                resolve(false)
-            }
-        } catch (e) {
-            reject(e)
+const checkUserEmail = async (userEmail: string) => {
+    try {
+        let user = await db.User.findOne({
+            where: { email: userEmail }
+        })
+        if (user) {
+            return true
+        } else {
+            return false
         }
-    })
+    } catch (e) {
+        console.log(e)
+    }
+
 }
 
 // cach viet function khac
@@ -92,7 +94,7 @@ export async function getAllUserRecoed(userId: any) {
     }
 }
 
-let getAllUsers = (userId: any) => {
+const getAllUsers = (userId: any) => {
     return new Promise(async (resolve, reject) => {
         try {
             let users = '';
@@ -120,7 +122,7 @@ let getAllUsers = (userId: any) => {
     })
 }
 
-let createNewUser = (data: {
+type CreateUser = {
     email: string,
     password: string,
     firstName: string,
@@ -131,17 +133,18 @@ let createNewUser = (data: {
     roleId: string,
     positionId: string,
     avatar: string
-}) => {
+}
+const createNewUser = (data: CreateUser) => {
     return new Promise(async (resolve, reject) => {
         try {
-            let check = await checkUserEmail(data.email);
+            const check = await checkUserEmail(data.email);
             if (check) {
                 resolve({
                     errCode: 1,
                     errMessage: 'Your email already used, Plz try another email'
                 })
             } else {
-                let hassPasswordFromBcrypt = await hashUserPassword(data.password);
+                const hassPasswordFromBcrypt = await hashUserPassword(data.password);
                 await db.User.create({
                     email: data.email,
                     password: hassPasswordFromBcrypt,
@@ -165,9 +168,9 @@ let createNewUser = (data: {
     })
 }
 
-let deleteUser = (userId: number) => {
+const deleteUser = (userId: number) => {
     return new Promise(async (resolve, reject) => {
-        let user = await db.User.findOne({
+        const user = await db.User.findOne({
             where: { id: userId }
         })
         if (!user) {
@@ -186,7 +189,7 @@ let deleteUser = (userId: number) => {
     })
 }
 
-let updateUserData = (data: {
+type UpdateUser = {
     id: string;
     roleId: string;
     positionId: string;
@@ -196,7 +199,8 @@ let updateUserData = (data: {
     address: string;
     phonenumber: string;
     avatar: string;
-}) => {
+}
+let updateUserData = (data: UpdateUser) => {
     return new Promise(async (resolve, reject) => {
         try {
             if (!data.id || !data.roleId || !data.positionId || !data.gender) {

@@ -1,6 +1,7 @@
 'use strict';
 import {
-    Model
+    DataTypes,
+    Model, Sequelize
 } from 'sequelize';
 
 interface UserAttributes {
@@ -16,7 +17,7 @@ interface UserAttributes {
     roleId: string;
     positionId: string;
 }
-module.exports = (sequelize: any, DataTypes: any) => {
+module.exports = (sequelize: Sequelize, dataTypes: typeof DataTypes) => {
     class User extends Model<UserAttributes>
         implements UserAttributes {
         /**
@@ -45,40 +46,40 @@ module.exports = (sequelize: any, DataTypes: any) => {
     }
     User.init({
         id: {
-            type: DataTypes.INTEGER,
+            type: dataTypes.INTEGER,
             allowNull: false,
             autoIncrement: true,
             primaryKey: true
         },
         email: {
-            type: DataTypes.STRING,
+            type: dataTypes.STRING,
         },
         password: {
-            type: DataTypes.STRING,
+            type: dataTypes.STRING,
         },
         firstName: {
-            type: DataTypes.STRING,
+            type: dataTypes.STRING,
         },
         lastName: {
-            type: DataTypes.STRING,
+            type: dataTypes.STRING,
         },
         address: {
-            type: DataTypes.STRING,
+            type: dataTypes.STRING,
         },
         phonenumber: {
-            type: DataTypes.STRING,
+            type: dataTypes.STRING,
         },
         gender: {
-            type: DataTypes.STRING,
+            type: dataTypes.STRING,
         },
         image: {
-            type: DataTypes.STRING,
+            type: dataTypes.STRING,
         },
         roleId: {
-            type: DataTypes.STRING,
+            type: dataTypes.STRING,
         },
         positionId: {
-            type: DataTypes.STRING,
+            type: dataTypes.STRING,
         }
     }, {
         sequelize,

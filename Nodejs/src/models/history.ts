@@ -1,6 +1,7 @@
 'use strict';
 import {
-    Model
+    DataTypes,
+    Model, Sequelize
 } from 'sequelize';
 
 interface HistoryAttributes {
@@ -10,7 +11,7 @@ interface HistoryAttributes {
     description: string;
     files: string;
 }
-module.exports = (sequelize: any, DataTypes: any) => {
+module.exports = (sequelize: Sequelize, dataTypes: typeof DataTypes) => {
     class History extends Model<HistoryAttributes>
         implements HistoryAttributes {
         /**
@@ -30,22 +31,22 @@ module.exports = (sequelize: any, DataTypes: any) => {
     };
     History.init({
         id: {
-            type: DataTypes.INTEGER,
+            type: dataTypes.INTEGER,
             allowNull: false,
             autoIncrement: true,
             primaryKey: true
         },
         patientId: {
-            type: DataTypes.INTEGER,
+            type: dataTypes.INTEGER,
         },
         doctorId: {
-            type: DataTypes.INTEGER,
+            type: dataTypes.INTEGER,
         },
         description: {
-            type: DataTypes.TEXT,
+            type: dataTypes.TEXT,
         },
         files: {
-            type: DataTypes.TEXT,
+            type: dataTypes.TEXT,
         }
     }, {
         sequelize,

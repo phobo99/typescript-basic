@@ -1,6 +1,7 @@
 'use strict';
 import {
-    Model
+    DataTypes,
+    Model, Sequelize
 } from 'sequelize';
 
 interface ScheduleAttributes {
@@ -11,7 +12,7 @@ interface ScheduleAttributes {
     timeType: string;
     doctorId: number;
 }
-module.exports = (sequelize: any, DataTypes: any) => {
+module.exports = (sequelize: Sequelize, dataTypes: typeof DataTypes) => {
     class Schedule extends Model<ScheduleAttributes>
         implements ScheduleAttributes {
         /**
@@ -32,25 +33,25 @@ module.exports = (sequelize: any, DataTypes: any) => {
     }
     Schedule.init({
         id: {
-            type: DataTypes.INTEGER,
+            type: dataTypes.INTEGER,
             allowNull: false,
             autoIncrement: true,
             primaryKey: true
         },
         currentNumber: {
-            type: DataTypes.INTEGER,
+            type: dataTypes.INTEGER,
         },
         maxNumber: {
-            type: DataTypes.INTEGER,
+            type: dataTypes.INTEGER,
         },
         date: {
-            type: DataTypes.DATE,
+            type: dataTypes.DATE,
         },
         timeType: {
-            type: DataTypes.STRING,
+            type: dataTypes.STRING,
         },
         doctorId: {
-            type: DataTypes.INTEGER,
+            type: dataTypes.INTEGER,
         }
     }, {
         sequelize,

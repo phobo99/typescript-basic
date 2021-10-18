@@ -1,7 +1,5 @@
 'use strict';
-import {
-    Model
-} from 'sequelize';
+import { Model, DataTypes, Sequelize } from 'sequelize';
 
 interface DoctorClinicSpecialtyAttributes {
     id: number;
@@ -9,7 +7,7 @@ interface DoctorClinicSpecialtyAttributes {
     clinicId: string;
     specialtyId: string;
 }
-module.exports = (sequelize: any, DataTypes: any) => {
+module.exports = (sequelize: Sequelize, dataTypes: typeof DataTypes) => {
     class Doctor_Clinic_Specialty extends Model<DoctorClinicSpecialtyAttributes>
         implements DoctorClinicSpecialtyAttributes {
         /**
@@ -28,19 +26,19 @@ module.exports = (sequelize: any, DataTypes: any) => {
     }
     Doctor_Clinic_Specialty.init({
         id: {
-            type: DataTypes.INTEGER,
+            type: dataTypes.INTEGER,
             allowNull: false,
             autoIncrement: true,
             primaryKey: true
         },
         doctorId: {
-            type: DataTypes.INTEGER,
+            type: dataTypes.INTEGER,
         },
         clinicId: {
-            type: DataTypes.INTEGER,
+            type: dataTypes.INTEGER,
         },
         specialtyId: {
-            type: DataTypes.INTEGER
+            type: dataTypes.INTEGER
         }
     }, {
         sequelize,

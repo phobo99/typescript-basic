@@ -1,9 +1,9 @@
 import db from "../models/index";
 
-let getTopDoctorHome = () => {
+const getTopDoctorHome = () => {
     return new Promise(async (resolve, reject) => {
         try {
-            let users = await db.User.findAll({
+            const users = await db.User.findAll({
                 where: { roleId: 'R2' },
                 order: [['createdAt', 'DESC']],
                 attributes: {
@@ -25,10 +25,10 @@ let getTopDoctorHome = () => {
         }
     })
 }
-let getAllDoctors = () => {
+const getAllDoctors = () => {
     return new Promise(async (resolve, reject) => {
         try {
-            let doctors = await db.User.findAll({
+            const doctors = await db.User.findAll({
                 where: { roleId: 'R2' },
                 attributes: {
                     exclude: ['password', 'image']
@@ -43,13 +43,15 @@ let getAllDoctors = () => {
         }
     })
 }
-let saveDetailInforDoctor = (inputData: {
+
+type DetailDoctor = {
     doctorId: number;
     contentHTML: string;
     contentMarkdown: string;
     action: string;
     description: string;
-}) => {
+}
+const saveDetailInforDoctor = (inputData: DetailDoctor) => {
     return new Promise(async (resolve, reject) => {
         try {
             if (!inputData.doctorId || !inputData.contentHTML
@@ -89,7 +91,7 @@ let saveDetailInforDoctor = (inputData: {
         }
     })
 }
-let getDetailDoctorById = (inputId: any) => {
+const getDetailDoctorById = (inputId: string) => {
     return new Promise(async (resolve, reject) => {
         try {
             if (!inputId) {

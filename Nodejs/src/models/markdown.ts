@@ -1,6 +1,7 @@
 'use strict';
 import {
-    Model
+    DataTypes,
+    Model, Sequelize
 } from 'sequelize';
 
 interface MarkdownAttributes {
@@ -12,7 +13,7 @@ interface MarkdownAttributes {
     specialtyId: string;
     clinicId: number;
 }
-module.exports = (sequelize: any, DataTypes: any) => {
+module.exports = (sequelize: Sequelize, dataTypes: typeof DataTypes) => {
     class Markdown extends Model<MarkdownAttributes>
         implements MarkdownAttributes {
         /**
@@ -36,28 +37,28 @@ module.exports = (sequelize: any, DataTypes: any) => {
     }
     Markdown.init({
         id: {
-            type: DataTypes.INTEGER,
+            type: dataTypes.INTEGER,
             allowNull: false,
             autoIncrement: true,
             primaryKey: true
         },
         contentHTML: {
-            type: DataTypes.TEXT('long'),
+            type: dataTypes.TEXT({ length: 'long' }),
         },
         contentMarkdown: {
-            type: DataTypes.TEXT('long'),
+            type: dataTypes.TEXT({ length: 'long' }),
         },
         description: {
-            type: DataTypes.TEXT('long'),
+            type: dataTypes.TEXT({ length: 'long' }),
         },
         doctorId: {
-            type: DataTypes.INTEGER,
+            type: dataTypes.INTEGER,
         },
         specialtyId: {
-            type: DataTypes.INTEGER,
+            type: dataTypes.INTEGER,
         },
         clinicId: {
-            type: DataTypes.INTEGER,
+            type: dataTypes.INTEGER,
         }
     }, {
         sequelize,

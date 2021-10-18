@@ -1,6 +1,8 @@
 'use strict';
 import {
-    Model
+    DataTypes,
+    Model,
+    Sequelize
 } from 'sequelize';
 
 interface BookAttributes {
@@ -11,7 +13,7 @@ interface BookAttributes {
     date: Date;
     timeType: string;
 }
-module.exports = (sequelize: any, DataTypes: any) => {
+module.exports = (sequelize: Sequelize, dataTypes: typeof DataTypes) => {
     class Booking extends Model<BookAttributes>
         implements BookAttributes {
         /**
@@ -32,25 +34,25 @@ module.exports = (sequelize: any, DataTypes: any) => {
     }
     Booking.init({
         id: {
-            type: DataTypes.INTEGER,
+            type: dataTypes.INTEGER,
             allowNull: false,
             autoIncrement: true,
             primaryKey: true
         },
         statusId: {
-            type: DataTypes.STRING,
+            type: dataTypes.STRING,
         },
         doctorID: {
-            type: DataTypes.INTEGER,
+            type: dataTypes.INTEGER,
         },
         patientId: {
-            type: DataTypes.INTEGER,
+            type: dataTypes.INTEGER,
         },
         date: {
-            type: DataTypes.DATE,
+            type: dataTypes.DATE,
         },
         timeType: {
-            type: DataTypes.STRING,
+            type: dataTypes.STRING,
         }
     }, {
         sequelize,

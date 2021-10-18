@@ -3,16 +3,11 @@ import bodyParser from 'body-parser';
 import initWebRoutes from './route/web';
 import connectDB from './config/connectDB';
 
-// import cors from 'cors'; BUG
 
 import dotenv from 'dotenv';
 dotenv.config();
 
 let app: express.Application = express();
-// app.use(cors({ origin: true })) BUG > fix bellow
-
-// middleware to your NodeJS/Express app
-// Add headers before the routes are defined
 app.use((req: express.Request, res: express.Response, next: express.NextFunction) => {
 
     // Website you wish to allow to connect
@@ -33,8 +28,6 @@ app.use((req: express.Request, res: express.Response, next: express.NextFunction
     next();
 });
 
-// app.use(bodyParser.json());
-// app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json({limit: '50mb'}));
 app.use(bodyParser.urlencoded({limit: '50mb', extended: true}))
 

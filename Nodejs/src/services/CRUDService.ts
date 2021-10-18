@@ -3,7 +3,13 @@ import db from '../models/index'
 
 const salt = bcrypt.genSaltSync(10);
 
-let createNewUser = async (data: {
+type UpdateUser = {
+    id: number;
+    firstName: string;
+    lastName: string;
+    address: string;
+}
+type NewUser = {
     password: string;
     email: string;
     firstName: string;
@@ -12,7 +18,8 @@ let createNewUser = async (data: {
     phonenumber: string;
     gender: string;
     roleId: any;
-}) => {
+}
+let createNewUser = async (data: NewUser) => {
     return new Promise(async (resolve, reject) => {
         try {
             let hassPasswordFromBcrypt = await hashUserPassword(data.password);
@@ -74,7 +81,7 @@ let getUserInfoById = (userId: string) => {
     })
 }
 
-let updateUserData = (data: { id: number; firstName: string; lastName: string; address: string; }) => {
+let updateUserData = (data: UpdateUser) => {
     return new Promise<void>(async (resolve, reject) => {
         try {
             let user = await db.User.findOne({
