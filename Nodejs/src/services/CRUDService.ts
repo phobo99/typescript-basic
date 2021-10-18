@@ -22,7 +22,7 @@ type NewUser = {
 
 const createNewUser = async (data: NewUser) => {
     try {
-        let hassPasswordFromBcrypt = await hashUserPassword(data.password);
+        let hassPasswordFromBcrypt = hashUserPassword(data.password);
         await db.User.create({
             email: data.email,
             password: hassPasswordFromBcrypt,
@@ -47,9 +47,9 @@ const hashUserPassword = (password: string) => {
     }
 }
 
-const getAllUser = () => {
+const getAllUser = async () => {
     try {
-        return db.User.findAll({
+        return await db.User.findAll({
             raw: true
         });
     } catch (e) {

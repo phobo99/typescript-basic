@@ -95,7 +95,8 @@ const checkUserEmail = async (userEmail: string) => {
         const user = await db.User.findOne({
             where: { email: userEmail }
         })
-        return true ? user : !user
+        return user;
+        
     } catch (e) {
         console.log(e)
     }
