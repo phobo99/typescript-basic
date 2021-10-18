@@ -1,6 +1,6 @@
 'use strict';
 import {
-    Model, UUIDV4
+    Model, UUIDV4, Sequelize, DataTypes,
 } from 'sequelize';
 
 interface UserAttributes {
@@ -10,7 +10,7 @@ interface UserAttributes {
     password: string;
 }
 
-module.exports = (sequelize: any, DataTypes: any) => {
+module.exports = (sequelize: Sequelize, dataTypes: typeof DataTypes) => {
     class User extends Model<UserAttributes>
         implements UserAttributes {
         /**
@@ -32,22 +32,22 @@ module.exports = (sequelize: any, DataTypes: any) => {
     }
     User.init({
         id: {
-            type: DataTypes.UUID,
+            type: dataTypes.UUID,
             defaultValue: UUIDV4,
             allowNull: false,
             primaryKey: true
         },
         name: {
-            type: DataTypes.STRING,
+            type: dataTypes.STRING,
             allowNull: false
         },
         email: {
-            type: DataTypes.STRING,
+            type: dataTypes.STRING,
             allowNull: false,
             unique: true
         },
         password: {
-            type: DataTypes.STRING,
+            type: dataTypes.STRING,
             allowNull: false
         }
     }, {
