@@ -3,9 +3,9 @@ import homeController from "../controllers/HomeController";
 import userController from "../controllers/userController";
 import doctorController from "../controllers/doctorController"
 
-let router = express.Router();
+const router = express.Router();
 
-let initWebRoutes = (app: express.Application) => {
+const initWebRoutes = (app: express.Application) => {
     router.post('/post-crud', homeController.postCRUD);
     router.get('/delete-crud', homeController.deleteCRUD);
 

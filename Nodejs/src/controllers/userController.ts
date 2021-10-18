@@ -2,8 +2,7 @@ import userService from "../services/userService"
 import { Request, Response } from "express";
 
 const handleLogin = async (req: Request, res: Response) => {
-    const email = req.body.email;
-    const password = req.body.password;
+    const { email, password } = req.body
 
     // Nếu k gửi email password thì trả ra lỗi này
     if (!email || !password) {

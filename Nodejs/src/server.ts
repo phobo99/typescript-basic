@@ -2,12 +2,10 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import initWebRoutes from './route/web';
 import connectDB from './config/connectDB';
-
-
 import dotenv from 'dotenv';
 dotenv.config();
 
-let app: express.Application = express();
+const app: express.Application = express();
 app.use((req: express.Request, res: express.Response, next: express.NextFunction) => {
 
     // Website you wish to allow to connect
