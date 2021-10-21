@@ -28,6 +28,12 @@ const getAllDoctors = async (req: Request, res: Response) => {
 };
 
 const postInforDoctor = async (req: Request, res: Response) => {
+  if (!req.body) {
+    return res.status(500).json({
+      errCode: 1,
+      errMessage: 'Missing requied parameters',
+    });
+  }
   try {
     const inforDoctor = await doctorService.saveDetailInforDoctor(req.body);
     return res.status(200).json(inforDoctor);
@@ -41,6 +47,12 @@ const postInforDoctor = async (req: Request, res: Response) => {
 };
 
 const getDetailDoctorById = async (req: Request, res: Response) => {
+  if (!req.query.id) {
+    return res.status(500).json({
+      errCode: 1,
+      errMessage: 'Missing requied parameters',
+    });
+  }
   try {
     const detailDoctor = await doctorService.getDetailDoctorById(
       req.query.id as string,

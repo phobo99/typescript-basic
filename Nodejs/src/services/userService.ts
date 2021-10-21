@@ -61,7 +61,7 @@ const handleUserLogin = async (email: string, password: string) => {
         userData = {
           errCode: 0,
           errMessage: 'OK',
-          user: user,
+          user,
         };
       } else {
         userData = {
