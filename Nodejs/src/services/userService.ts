@@ -36,14 +36,20 @@ const hashUserPassword = (password: string) => {
 };
 
 const handleUserLogin = async (email: string, password: string) => {
+  let userData: {
+    errCode: number;
+    errMessage: string;
+    user: object;
+  };
   try {
-    const userData = {
-      errCode: 0,
-      errMessage: '',
-      user: {},
-    };
     const emailExist = await checkUserEmail(email);
-    if (emailExist) {
+    if (!emailExist) {
+      userData = {
+        errCode: 1,
+        errMessage: `Your's Email isn't exist in your system. Plz try other email`,
+        user: {},
+      };
+    } else {
       const user = await db.User.findOne({
         attributes: ['email', 'roleId', 'password', 'firstName', 'lastName'],
         where: { email: email },
@@ -51,17 +57,19 @@ const handleUserLogin = async (email: string, password: string) => {
       });
       const check = bcrypt.compareSync(password, user.password);
       if (check) {
-        userData.errCode = 0;
-        userData.errMessage = 'OK';
         delete user.password;
-        userData.user = user;
+        userData = {
+          errCode: 0,
+          errMessage: 'OK',
+          user: user,
+        };
       } else {
-        userData.errCode = 3;
-        userData.errMessage = 'Wrong password';
+        userData = {
+          errCode: 3,
+          errMessage: 'Wrong password',
+          user: {},
+        };
       }
-    } else {
-      userData.errCode = 1;
-      userData.errMessage = `Your's Email isn't exist in your system. Plz try other email`;
     }
     return userData;
   } catch (e) {
@@ -114,27 +122,8 @@ const createNewUser = async (data: CreateUser) => {
       };
     }
     hashUserPassword(data.password);
-    const {
-      email,
-      password,
-      firstName,
-      lastName,
-      address,
-      phonenumber,
-      gender,
-      roleId,
-      positionId,
-    } = data;
     await db.User.create({
-      email,
-      password,
-      firstName,
-      lastName,
-      address,
-      phonenumber,
-      gender,
-      roleId,
-      positionId,
+      ...data,
       image: data.avatar,
     });
     return {
@@ -212,16 +201,16 @@ const updateUserData = async (data: UpdateUser) => {
   }
 };
 
-const getAllCodeService = async (typeInput: any) => {
+const getAllCodeService = async (inputType: any) => {
   try {
-    if (!typeInput) {
+    if (!inputType) {
       return {
         errCode: 1,
         errMessage: 'Missing required parameters',
       };
     }
     const allcode = await db.Allcode.findAll({
-      where: { type: typeInput },
+      where: { type: inputType },
     });
     return {
       errCode: 0,
