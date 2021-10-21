@@ -49,20 +49,15 @@ const handleUserLogin = async (email: string, password: string) => {
         where: { email: email },
         raw: true,
       });
-      if (!user) {
-        userData.errCode = 2;
-        userData.errMessage = `User isn't not found`;
+      const check = bcrypt.compareSync(password, user.password);
+      if (check) {
+        userData.errCode = 0;
+        userData.errMessage = 'OK';
+        delete user.password;
+        userData.user = user;
       } else {
-        const check = bcrypt.compareSync(password, user.password);
-        if (check) {
-          userData.errCode = 0;
-          userData.errMessage = 'OK';
-          delete user.password;
-          userData.user = user;
-        } else {
-          userData.errCode = 3;
-          userData.errMessage = 'Wrong password';
-        }
+        userData.errCode = 3;
+        userData.errMessage = 'Wrong password';
       }
     } else {
       userData.errCode = 1;
@@ -117,36 +112,35 @@ const createNewUser = async (data: CreateUser) => {
         errCode: 1,
         errMessage: 'Your email already used, Plz try another email',
       };
-    } else {
-      hashUserPassword(data.password);
-      const {
-        email,
-        password,
-        firstName,
-        lastName,
-        address,
-        phonenumber,
-        gender,
-        roleId,
-        positionId,
-      } = data;
-      await db.User.create({
-        email,
-        password,
-        firstName,
-        lastName,
-        address,
-        phonenumber,
-        gender,
-        roleId,
-        positionId,
-        image: data.avatar,
-      });
-      return {
-        errCode: 0,
-        message: 'OK',
-      };
     }
+    hashUserPassword(data.password);
+    const {
+      email,
+      password,
+      firstName,
+      lastName,
+      address,
+      phonenumber,
+      gender,
+      roleId,
+      positionId,
+    } = data;
+    await db.User.create({
+      email,
+      password,
+      firstName,
+      lastName,
+      address,
+      phonenumber,
+      gender,
+      roleId,
+      positionId,
+      image: data.avatar,
+    });
+    return {
+      errCode: 0,
+      message: 'OK',
+    };
   } catch (e) {
     console.log(e);
   }
@@ -192,28 +186,27 @@ const updateUserData = async (data: UpdateUser) => {
       gender,
       phonenumber,
     } = data;
-    if (user) {
-      user.firstName = firstName;
-      user.lastName = lastName;
-      user.address = address;
-      user.roleId = roleId;
-      user.positionId = positionId;
-      user.gender = gender;
-      user.phonenumber = phonenumber;
-      if (data.avatar) {
-        user.image = data.avatar;
-      }
-      await user.save();
-      return {
-        errCode: 0,
-        message: 'Update the user succeed!',
-      };
-    } else {
+    if (!user) {
       return {
         errCode: 1,
         errMessage: `User's not found`,
       };
     }
+    user.firstName = firstName;
+    user.lastName = lastName;
+    user.address = address;
+    user.roleId = roleId;
+    user.positionId = positionId;
+    user.gender = gender;
+    user.phonenumber = phonenumber;
+    if (data.avatar) {
+      user.image = data.avatar;
+    }
+    await user.save();
+    return {
+      errCode: 0,
+      message: 'Update the user succeed!',
+    };
   } catch (e) {
     console.log(e);
   }
@@ -226,15 +219,14 @@ const getAllCodeService = async (typeInput: any) => {
         errCode: 1,
         errMessage: 'Missing required parameters',
       };
-    } else {
-      const res: any = {};
-      const allcode = await db.Allcode.findAll({
-        where: { type: typeInput },
-      });
-      res.errCode = 0;
-      res.data = allcode;
-      return res;
     }
+    const allcode = await db.Allcode.findAll({
+      where: { type: typeInput },
+    });
+    return {
+      errCode: 0,
+      data: allcode,
+    };
   } catch (e) {
     console.log(e);
   }
