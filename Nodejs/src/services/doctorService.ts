@@ -1,6 +1,6 @@
 import db from '../models/index';
 
-type DetailDoctor = {
+type DoctorDetail = {
   doctorId: number;
   contentHTML: string;
   contentMarkdown: string;
@@ -18,12 +18,12 @@ const getTopDoctor = async () => {
       },
       include: [
         {
-          model: db.Allcode,
+          model: db.AllCode,
           as: 'positionData',
           attributes: ['valueEn', 'valueVi'],
         },
         {
-          model: db.Allcode,
+          model: db.AllCode,
           as: 'genderData',
           attributes: ['valueEn', 'valueVi'],
         },
@@ -57,7 +57,7 @@ const getAllDoctors = async () => {
   }
 };
 
-const saveDetailInforDoctor = async (inputData: DetailDoctor) => {
+const saveDoctorInfo = async (inputData: DoctorDetail) => {
   try {
     if (
       !inputData.doctorId ||
@@ -104,16 +104,16 @@ const saveDetailInforDoctor = async (inputData: DetailDoctor) => {
   }
 };
 
-const getDetailDoctorById = async (inputId: string) => {
+const getDoctorById = async (doctorId: string) => {
   try {
-    if (!inputId) {
+    if (!doctorId) {
       return {
         errCode: 1,
         errMessage: 'Missing required parameters!',
       };
     }
     let dataDoctor = await db.User.findOne({
-      where: { id: inputId },
+      where: { id: doctorId },
       attributes: {
         exclude: ['password'],
       },
@@ -123,7 +123,7 @@ const getDetailDoctorById = async (inputId: string) => {
           attributes: ['description', 'contentHTML', 'contentMarkdown'],
         },
         {
-          model: db.Allcode,
+          model: db.AllCode,
           as: 'positionData',
           attributes: ['valueEn', 'valueVi'],
         },
@@ -149,6 +149,6 @@ const getDetailDoctorById = async (inputId: string) => {
 export default {
   getTopDoctor,
   getAllDoctors,
-  saveDetailInforDoctor,
-  getDetailDoctorById,
+  saveDoctorInfo,
+  getDoctorById,
 };

@@ -12,19 +12,10 @@ module.exports = (sequelize: Sequelize, dataTypes: typeof DataTypes) => {
     extends Model<DoctorClinicSpecialtyAttributes>
     implements DoctorClinicSpecialtyAttributes
   {
-    /**
-     * Helper method for defining associations.
-     * This method is not a part of Sequelize lifecycle.
-     * The `models/index` file will call this method automatically.
-     */
     id!: number;
     doctorId!: number;
     clinicId!: string;
     specialtyId!: string;
-
-    static associate(models: any) {
-      // define association here: Định danh các mối quan hệ
-    }
   }
   Doctor_Clinic_Specialty.init(
     {

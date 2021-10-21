@@ -14,21 +14,12 @@ module.exports = (sequelize: Sequelize, dataTypes: typeof DataTypes) => {
     extends Model<ScheduleAttributes>
     implements ScheduleAttributes
   {
-    /**
-     * Helper method for defining associations.
-     * This method is not a part of Sequelize lifecycle.
-     * The `models/index` file will call this method automatically.
-     */
-
     id!: number;
     currentNumber!: string;
     maxNumber!: string;
     date!: Date;
     timeType!: string;
     doctorId!: number;
-    static associate(models: any) {
-      // define association here: Định danh các mối quan hệ
-    }
   }
   Schedule.init(
     {

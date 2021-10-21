@@ -1,7 +1,7 @@
 'use strict';
 import { DataTypes, Model } from 'sequelize';
 
-interface AllcodeAttributes {
+interface AllCodeAttributes {
   keyMap: string;
   type: string;
   valueEn: string;
@@ -9,27 +9,20 @@ interface AllcodeAttributes {
 }
 
 module.exports = (sequelize: any, dataTypes: typeof DataTypes) => {
-  class Allcode extends Model<AllcodeAttributes> implements AllcodeAttributes {
-    /**
-     * Helper method for defining associations.
-     * This method is not a part of Sequelize lifecycle.
-     * The `models/index` file will call this method automatically.
-     */
-
+  class AllCode extends Model<AllCodeAttributes> implements AllCodeAttributes {
     keyMap!: string;
     type!: string;
     valueEn!: string;
     valueVi!: string;
     static associate(models: any) {
-      // define association here: Định danh các mối quan hệ
-      Allcode.hasMany(models.User, {
+      AllCode.hasMany(models.User, {
         foreignKey: 'positionId',
         as: 'positionData',
       });
-      Allcode.hasMany(models.User, { foreignKey: 'gender', as: 'genderData' });
+      AllCode.hasMany(models.User, { foreignKey: 'gender', as: 'genderData' });
     }
   }
-  Allcode.init(
+  AllCode.init(
     {
       keyMap: {
         allowNull: false,
@@ -52,8 +45,8 @@ module.exports = (sequelize: any, dataTypes: typeof DataTypes) => {
     },
     {
       sequelize,
-      modelName: 'Allcode',
+      modelName: 'AllCode',
     },
   );
-  return Allcode;
+  return AllCode;
 };

@@ -16,11 +16,6 @@ interface UserAttributes {
 }
 module.exports = (sequelize: Sequelize, dataTypes: typeof DataTypes) => {
   class User extends Model<UserAttributes> implements UserAttributes {
-    /**
-     * Helper method for defining associations.
-     * This method is not a part of Sequelize lifecycle.
-     * The `models/index` file will call this method automatically.
-     */
     id!: number;
     email!: string;
     password!: string;
@@ -34,13 +29,12 @@ module.exports = (sequelize: Sequelize, dataTypes: typeof DataTypes) => {
     positionId!: string;
 
     static associate(models: any) {
-      // define association here: Định danh các mối quan hệ
-      User.belongsTo(models.Allcode, {
+      User.belongsTo(models.AllCode, {
         foreignKey: 'positionId',
         targetKey: 'keyMap',
         as: 'positionData',
       });
-      User.belongsTo(models.Allcode, {
+      User.belongsTo(models.AllCode, {
         foreignKey: 'gender',
         targetKey: 'keyMap',
         as: 'genderData',

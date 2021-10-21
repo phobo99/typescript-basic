@@ -209,12 +209,12 @@ const getAllCodeService = async (inputType: any) => {
         errMessage: 'Missing required parameters',
       };
     }
-    const allcode = await db.Allcode.findAll({
+    const allCode = await db.AllCode.findAll({
       where: { type: inputType },
     });
     return {
       errCode: 0,
-      data: allcode,
+      data: allCode,
     };
   } catch (e) {
     console.log(e);

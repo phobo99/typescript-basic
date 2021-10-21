@@ -23,7 +23,7 @@ const handleGetAllUsers = async (req: Request, res: Response) => {
   if (!id) {
     return res.status(400).json({
       errCode: 1,
-      errMessage: 'Missing requied parameters',
+      errMessage: 'Missing required parameters',
       users: [],
     });
   }
@@ -39,7 +39,7 @@ const handleCreateNewUser = async (req: Request, res: Response) => {
   if (!req.body) {
     return res.status(400).json({
       errCode: 1,
-      errMessage: 'Missing requied parameters',
+      errMessage: 'Missing required parameters',
     });
   }
   const resCreateUser = await userService.createNewUser(req.body);
@@ -62,7 +62,7 @@ const handleEditUser = async (req: Request, res: Response) => {
   if (!req.body) {
     return res.status(400).json({
       errCode: 1,
-      errMessage: 'Missing requied parameters',
+      errMessage: 'Missing required parameters',
     });
   }
   const responseEdit = await userService.updateUserData(req.body);
@@ -73,7 +73,7 @@ const getAllCode = async (req: Request, res: Response) => {
   if (!req.query.type) {
     return res.status(400).json({
       errCode: 1,
-      errMessage: 'Missing requied parameters',
+      errMessage: 'Missing required parameters',
     });
   }
   try {

@@ -10,10 +10,10 @@ const initWebRoutes = (app: express.Application) => {
   router.post('/new-user', userController.handleCreateNewUser);
   router.put('/user', userController.handleEditUser);
   router.delete('/user', userController.handleDeleteUser);
-  router.get('/allcode', userController.getAllCode);
+  router.get('/all-code', userController.getAllCode);
   router.get('/top-doctors', doctorController.getTopDoctor);
   router.get('/doctors', doctorController.getAllDoctors);
-  router.post('/save-doctor', doctorController.saveInforDoctor);
+  router.post('/save-doctor', doctorController.saveInfoDoctor);
   router.get('/detail-doctor', doctorController.getDoctorById);
 
   return app.use('/api', router);

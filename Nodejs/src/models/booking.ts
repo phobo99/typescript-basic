@@ -11,21 +11,12 @@ interface BookAttributes {
 }
 module.exports = (sequelize: Sequelize, dataTypes: typeof DataTypes) => {
   class Booking extends Model<BookAttributes> implements BookAttributes {
-    /**
-     * Helper method for defining associations.
-     * This method is not a part of Sequelize lifecycle.
-     * The `models/index` file will call this method automatically.
-     */
-
     id!: number;
     statusId!: string;
     doctorID!: number;
     patientId!: number;
     date!: Date;
     timeType!: string;
-    static associate(models: any) {
-      // define association here: Định danh các mối quan hệ
-    }
   }
   Booking.init(
     {

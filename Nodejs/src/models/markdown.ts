@@ -15,12 +15,6 @@ module.exports = (sequelize: Sequelize, dataTypes: typeof DataTypes) => {
     extends Model<MarkdownAttributes>
     implements MarkdownAttributes
   {
-    /**
-     * Helper method for defining associations.
-     * This method is not a part of Sequelize lifecycle.
-     * The `models/index` file will call this method automatically.
-     */
-
     id!: number;
     contentHTML!: string;
     contentMarkdown!: string;
@@ -30,7 +24,6 @@ module.exports = (sequelize: Sequelize, dataTypes: typeof DataTypes) => {
     clinicId!: number;
 
     static associate(models: any) {
-      // define association here: Định danh các mối quan hệ
       Markdown.belongsTo(models.User, { foreignKey: 'doctorId' });
     }
   }
