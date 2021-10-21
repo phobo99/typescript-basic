@@ -50,7 +50,7 @@ const getDoctorById = async (req: Request, res: Response) => {
   if (!req.query.id) {
     return res.status(400).json({
       errCode: 1,
-      errMessage: 'Missing requied parameters',
+      errMessage: 'Missing required parameters',
     });
   }
   try {
