@@ -8,7 +8,7 @@ type DetailDoctor = {
   description: string;
 };
 
-const getTopDoctorHome = async () => {
+const getTopDoctor = async () => {
   try {
     const doctors = await db.User.findAll({
       where: { roleId: 'R2' },
@@ -147,7 +147,7 @@ const getDetailDoctorById = async (inputId: string) => {
 };
 
 export default {
-  getTopDoctorHome,
+  getTopDoctor,
   getAllDoctors,
   saveDetailInforDoctor,
   getDetailDoctorById,

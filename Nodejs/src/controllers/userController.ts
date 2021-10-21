@@ -4,7 +4,7 @@ import { Request, Response } from 'express';
 const handleLogin = async (req: Request, res: Response) => {
   const { email, password } = req.body;
   if (!email || !password) {
-    return res.status(500).json({
+    return res.status(400).json({
       errCode: 1,
       message: 'Missing input parameters!',
     });
@@ -21,7 +21,7 @@ const handleLogin = async (req: Request, res: Response) => {
 const handleGetAllUsers = async (req: Request, res: Response) => {
   const id = req.query.id;
   if (!id) {
-    return res.status(500).json({
+    return res.status(400).json({
       errCode: 1,
       errMessage: 'Missing requied parameters',
       users: [],
@@ -37,7 +37,7 @@ const handleGetAllUsers = async (req: Request, res: Response) => {
 
 const handleCreateNewUser = async (req: Request, res: Response) => {
   if (!req.body) {
-    return res.status(500).json({
+    return res.status(400).json({
       errCode: 1,
       errMessage: 'Missing requied parameters',
     });
@@ -60,7 +60,7 @@ const handleDeleteUser = async (req: Request, res: Response) => {
 
 const handleEditUser = async (req: Request, res: Response) => {
   if (!req.body) {
-    return res.status(500).json({
+    return res.status(400).json({
       errCode: 1,
       errMessage: 'Missing requied parameters',
     });
@@ -71,7 +71,7 @@ const handleEditUser = async (req: Request, res: Response) => {
 
 const getAllCode = async (req: Request, res: Response) => {
   if (!req.query.type) {
-    return res.status(500).json({
+    return res.status(400).json({
       errCode: 1,
       errMessage: 'Missing requied parameters',
     });

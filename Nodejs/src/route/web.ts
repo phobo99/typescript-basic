@@ -11,10 +11,10 @@ const initWebRoutes = (app: express.Application) => {
   router.put('/user', userController.handleEditUser);
   router.delete('/user', userController.handleDeleteUser);
   router.get('/allcode', userController.getAllCode);
-  router.get('/top-doctors', doctorController.getTopDoctorHome);
+  router.get('/top-doctors', doctorController.getTopDoctor);
   router.get('/doctors', doctorController.getAllDoctors);
-  router.post('/save-doctor', doctorController.postInforDoctor);
-  router.get('/detail-doctor', doctorController.getDetailDoctorById);
+  router.post('/save-doctor', doctorController.saveInforDoctor);
+  router.get('/detail-doctor', doctorController.getDoctorById);
 
   return app.use('/api', router);
 };

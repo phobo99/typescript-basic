@@ -1,13 +1,13 @@
 import doctorService from '../services/doctorService';
 import { Request, Response } from 'express';
 
-const getTopDoctorHome = async (req: Request, res: Response) => {
+const getTopDoctor = async (req: Request, res: Response) => {
   try {
-    const resDoctor = await doctorService.getTopDoctorHome();
+    const resDoctor = await doctorService.getTopDoctor();
     return res.status(200).json(resDoctor);
   } catch (e) {
     console.log(e);
-    return res.status(200).json({
+    return res.status(500).json({
       errCode: -1,
       message: 'Error from server...',
     });
@@ -20,35 +20,35 @@ const getAllDoctors = async (req: Request, res: Response) => {
     return res.status(200).json(doctors);
   } catch (e) {
     console.log(e);
-    return res.status(200).json({
+    return res.status(500).json({
       errCode: -1,
       errMessage: 'Error from server',
     });
   }
 };
 
-const postInforDoctor = async (req: Request, res: Response) => {
+const saveInforDoctor = async (req: Request, res: Response) => {
   if (!req.body) {
-    return res.status(500).json({
+    return res.status(400).json({
       errCode: 1,
-      errMessage: 'Missing requied parameters',
+      errMessage: 'Missing required parameters',
     });
   }
   try {
-    const inforDoctor = await doctorService.saveDetailInforDoctor(req.body);
-    return res.status(200).json(inforDoctor);
+    const doctorInfo = await doctorService.saveDetailInforDoctor(req.body);
+    return res.status(200).json(doctorInfo);
   } catch (e) {
     console.log(e);
-    return res.status(200).json({
+    return res.status(500).json({
       errCode: -1,
       errMessage: 'Error from server',
     });
   }
 };
 
-const getDetailDoctorById = async (req: Request, res: Response) => {
+const getDoctorById = async (req: Request, res: Response) => {
   if (!req.query.id) {
-    return res.status(500).json({
+    return res.status(400).json({
       errCode: 1,
       errMessage: 'Missing requied parameters',
     });
@@ -60,7 +60,7 @@ const getDetailDoctorById = async (req: Request, res: Response) => {
     return res.status(200).json(detailDoctor);
   } catch (e) {
     console.log(e);
-    res.status(200).json({
+    res.status(500).json({
       errCode: -1,
       errMessage: 'error from the server',
     });
@@ -68,8 +68,8 @@ const getDetailDoctorById = async (req: Request, res: Response) => {
 };
 
 export default {
-  getTopDoctorHome,
+  getTopDoctor,
   getAllDoctors,
-  postInforDoctor,
-  getDetailDoctorById,
+  saveInforDoctor,
+  getDoctorById,
 };
