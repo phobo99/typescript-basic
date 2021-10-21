@@ -81,10 +81,11 @@ const updateUserData = async (data: UpdateUser) => {
     const user = await db.User.findOne({
       where: { id: data.id },
     });
+    const { firstName, lastName, address } = data;
     if (user) {
-      user.firstName = data.firstName;
-      user.lastName = data.lastName;
-      user.address = data.address;
+      user.firstName = firstName;
+      user.lastName = lastName;
+      user.address = address;
       await user.save();
       return await db.User.findAll();
     } else {

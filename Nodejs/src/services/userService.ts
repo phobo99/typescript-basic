@@ -1,6 +1,5 @@
 import db from '../models/index';
 import bcrypt from 'bcryptjs';
-import _ from 'lodash';
 const salt = bcrypt.genSaltSync(10);
 
 type UpdateUser = {
@@ -84,20 +83,6 @@ const checkUserEmail = async (userEmail: string) => {
     console.log(e);
   }
 };
-
-// cach viet function khac
-export async function getAllUserRecoed(userId: any) {
-  try {
-    if (_.isEmpty(userId)) {
-      // khoong co id get all
-    } else {
-      // find One
-    }
-    return await db.User.findAll({});
-  } catch (e) {
-    console.log(e);
-  }
-}
 
 const getAllUsers = async (userId: any) => {
   try {

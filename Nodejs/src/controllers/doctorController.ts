@@ -13,6 +13,7 @@ const getTopDoctorHome = async (req: Request, res: Response) => {
     });
   }
 };
+
 const getAllDoctors = async (req: Request, res: Response) => {
   try {
     const doctors = await doctorService.getAllDoctors();
@@ -25,6 +26,7 @@ const getAllDoctors = async (req: Request, res: Response) => {
     });
   }
 };
+
 const postInforDoctor = async (req: Request, res: Response) => {
   try {
     const inforDoctor = await doctorService.saveDetailInforDoctor(req.body);
@@ -37,6 +39,7 @@ const postInforDoctor = async (req: Request, res: Response) => {
     });
   }
 };
+
 const getDetailDoctorById = async (req: Request, res: Response) => {
   try {
     const detailDoctor = await doctorService.getDetailDoctorById(
@@ -51,6 +54,7 @@ const getDetailDoctorById = async (req: Request, res: Response) => {
     });
   }
 };
+
 export default {
   getTopDoctorHome,
   getAllDoctors,

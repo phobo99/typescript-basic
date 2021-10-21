@@ -68,6 +68,7 @@ const getAllCode = async (req: Request, res: Response) => {
     });
   }
 };
+
 export default {
   handleLogin,
   handleGetAllUsers,
