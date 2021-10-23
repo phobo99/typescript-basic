@@ -1,0 +1,67 @@
+TypeORM hỗ trợ Active Record và Data Mapper. ko giống như các JS ORM khác nên có thể có những ứng dụng có hiệu năng cao, kết nối lỏng lẻo, khả năng mở rộng và bảo trì theo hướng tốt nhất
+
+TypeORM bị ảnh hưởng nhiều từ Hibernate
+
+Data Mapper: ứng dụng lớn dễ bảo trì và hiệu quả với ứng dụng lớn
+Active Record: tiện dụng đơn giản phù hợp ứng dụng nhỏ hơn
+
+### Features ###
+eager and lazy relations
+
+đơn hướng, đa chiều và tự tham chiếu
+
+đa kế thừa
+
+left and inner joins
+
+ ...
+
+
+### Data Maper
+
+const repository = connection.getRepository(User);	//gọi tới Entity User
+
+const user = new User();
+user.firstName = "Timber";
+user.lastName = "Saw";
+user.age = 25;
+await repository.save(user);
+
+const allUsers = await repository.find();
+const firstUser = await repository.findOne(1); // find by id
+const timber = await repository.findOne({ firstName: "Timber", lastName: "Saw" });
+
+await repository.remove(timber);
+
+
+### Active Record
+
+extend BaseEntity
+
+const user = new User();
+user.firstName = "Timber";
+user.lastName = "Saw";
+user.age = 25;
+await user.save();
+
+const allUsers = await User.find();
+const firstUser = await User.findOne(1);
+const timber = await User.findOne({ firstName: "Timber", lastName: "Saw" });
+
+await timber.remove();
+
+
+###
+QueryBuilder : cho câu truy vấn phức tạp
+find* thì câu truy vấn bt
+
+###
+
+
+có nghĩa là lớp sử dụng @ManyToOne sẽ lưu trữ id của đối tượng liên quan.
+
+###
+
+
+
+
